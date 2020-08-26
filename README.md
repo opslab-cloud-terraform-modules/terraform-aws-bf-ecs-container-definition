@@ -103,13 +103,13 @@ and can be error prone.
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12.7, < 0.14 |
-| aws | >= 3.0, < 4.0 |
+| aws | >= 2.7, < 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | >= 3.0, < 4.0 |
+| aws | >= 2.7, < 4.0 |
 
 ## Inputs
 

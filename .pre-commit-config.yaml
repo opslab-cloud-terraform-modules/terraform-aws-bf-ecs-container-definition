@@ -1,3 +1,8 @@
+exclude: |
+  (?x)(
+    .chglog|
+    ^CHANGELOG.md
+  )
 repos:
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.32.0
@@ -21,4 +26,3 @@ repos:
     hooks:
       - id: doctoc
         args: [--notitle, --maxlevel=3]
-        exclude: .chglog

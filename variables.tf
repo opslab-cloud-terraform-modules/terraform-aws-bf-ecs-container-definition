@@ -1,10 +1,16 @@
 variable "name" {
-  description = "The name of the container. Up to 255 characters (a-z, A-Z, 0-9, -, _ allowed)"
+  description = "The name of the service. Up to 255 characters (a-z, A-Z, 0-9, -, _ allowed)"
   type        = string
 }
 
+variable "container_name" {
+  description = "The name of container. Use when container name differs from service name"
+  type        = string
+  default     = ""
+}
+
 variable "task_definition_name" {
-  description = "The name of task definition. Use when container name differs from task definition name"
+  description = "The name of task definition. Use when task definition name differs from service name"
   type        = string
   default     = ""
 }

@@ -117,6 +117,7 @@ and can be error prone.
 |------|-------------|------|---------|:--------:|
 | cloudwatch\_log\_group | Name of the log group | `string` | `null` | no |
 | cluster\_name | ECS cluster name | `string` | n/a | yes |
+| container\_name | The name of container. Use when container name differs from service name | `string` | `""` | no |
 | cpu | The number of cpu units to reserve for the container. This is optional for tasks using Fargate launch type and the total amount of container\_cpu of all containers in a task will need to be lower than the task-level cpu value | `number` | `0` | no |
 | datadog\_apm\_enable | When set to true, the Datadog Agent accepts trace metrics | `bool` | `true` | no |
 | datadog\_docker\_labels | Docker labels used by DataDog agent for auto-discovery [doc](https://docs.datadoghq.com/agent/autodiscovery/basic_autodiscovery?tab=docker) | `map(string)` | `null` | no |
@@ -134,12 +135,12 @@ and can be error prone.
 | memory | The amount of memory (in MiB) to allow the container to use. This is a hard limit, if the container attempts to exceed the container\_memory, the container is killed. This field is optional for Fargate launch type and the total amount of container\_memory of all containers in a task will need to be lower than the task memory value | `number` | `null` | no |
 | memory\_reservation | The amount of memory (in MiB) to reserve for the container. If container needs to exceed this threshold, it can do so up to the set container\_memory hard limit | `number` | `null` | no |
 | mount\_points | Container mount points. This is a list of maps, where each map should contain a `containerPath` and `sourceVolume` | <pre>list(object({<br>    containerPath = string<br>    sourceVolume  = string<br>  }))</pre> | `[]` | no |
-| name | The name of the container. Up to 255 characters (a-z, A-Z, 0-9, -, \_ allowed) | `string` | n/a | yes |
+| name | The name of the service. Up to 255 characters (a-z, A-Z, 0-9, -, \_ allowed) | `string` | n/a | yes |
 | port\_mappings | The port mappings to configure for the container. This is a list of maps. Each map should contain "containerPort", "hostPort", and "protocol", where "protocol" is one of "tcp" or "udp". If using containers in a task with the awsvpc or host network mode, the hostPort can either be left blank or set to the same value as the containerPort | <pre>list(object({<br>    containerPort = number<br>    hostPort      = number<br>    protocol      = string<br>  }))</pre> | <pre>[<br>  {<br>    "containerPort": 80,<br>    "hostPort": 80,<br>    "protocol": "tcp"<br>  }<br>]</pre> | no |
 | repo | Docker repo | `string` | n/a | yes |
 | secrets | The SSM parameters to pass to the container | <pre>list(object({<br>    name      = string<br>    valueFrom = string<br>  }))</pre> | `null` | no |
 | ssm\_datadog\_api\_key | Path to SSM parameter storing the encrypted DataDog API key | `string` | `null` | no |
-| task\_definition\_name | The name of task definition. Use when container name differs from task definition name | `string` | `""` | no |
+| task\_definition\_name | The name of task definition. Use when task definition name differs from service name | `string` | `""` | no |
 | volumes\_from | A list of VolumesFrom maps which contain "sourceContainer" (name of the container that has the volumes to mount) and "readOnly" (whether the container can write to the volume) | <pre>list(object({<br>    sourceContainer = string<br>    readOnly        = bool<br>  }))</pre> | `[]` | no |
 
 ## Outputs

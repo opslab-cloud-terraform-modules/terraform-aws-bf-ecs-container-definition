@@ -26,7 +26,7 @@ data "aws_ecs_task_definition" "this" {
 data "aws_ecs_container_definition" "this" {
   count           = var.image_tag != "" ? 0 : 1
   task_definition = data.aws_ecs_task_definition.this[0].id
-  container_name  = var.name
+  container_name  = var.container_name != "" ? var.container_name : var.name
 }
 
 module "this" {
@@ -36,7 +36,7 @@ module "this" {
   container_cpu                = var.cpu
   container_memory             = var.memory
   container_memory_reservation = var.memory_reservation
-  container_name               = var.name
+  container_name               = var.container_name != "" ? var.container_name : var.name
   environment                  = var.environment
   essential                    = true
   healthcheck                  = var.healthcheck

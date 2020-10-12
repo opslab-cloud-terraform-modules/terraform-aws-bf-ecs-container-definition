@@ -19,14 +19,15 @@ locals {
     logDriver = "awsfirelens",
 
     options = {
-      dd_message_key = "log",
-      dd_service     = var.name,
-      dd_source      = var.datadog_logcollection_source,
-      dd_tags        = local.fb_tags,
-      Host           = "http-intake.logs.datadoghq.com",
-      Name           = "datadog",
-      provider       = "ecs",
-      TLS            = "on",
+      compress       = "gzip"
+      dd_message_key = "log"
+      dd_service     = var.name
+      dd_source      = var.datadog_logcollection_source
+      dd_tags        = local.fb_tags
+      Host           = format("http-intake.logs.%s", var.datadog_domain)
+      Name           = "datadog"
+      provider       = "ecs"
+      TLS            = "on"
     }
 
     secretOptions = [

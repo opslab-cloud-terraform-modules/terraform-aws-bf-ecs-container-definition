@@ -13,7 +13,7 @@ locals {
   # https://docs.datadoghq.com/agent/troubleshooting/debug_mode/?tab=agentv6v7
   # https://docs.datadoghq.com/tracing/setup/php/#environment-variable-configuration
 
-  dd_environment = concat(var.datadog_environment,
+  dd_environment_tmp = concat(var.datadog_environment,
     [
       {
         name  = "DD_APM_ENABLED",
@@ -39,21 +39,41 @@ locals {
         name  = "ECS_FARGATE",
         value = "true"
       },
+      {
+        name  = "DD_SITE"
+        value = var.datadog_domain
+      },
       # https://docs.datadoghq.com/integrations/ecs_fargate/#other-environment-variables
       {
-        name  = "DD_TAGS",
+        name  = "DD_TAGS"
         value = local.dd_tags
-      },
-      {
-        name  = "DD_AC_EXCLUDE",
-        value = "image:.*"
-      },
-      {
-        name  = "DD_AC_INCLUDE",
-        value = "image:${var.repo}.*"
       }
-
   ])
+
+  # TODO
+  #  - find out how to avoid empty values in map
+  #  - diff from empty dd_tags still results in the following plan which results in dd_tags = ""
+  /*
+  options = {
+      Host           = "http-intake.logs.datadoghq.eu"
+      Name           = "datadog"
+      TLS            = "on"
+      compress       = "gzip"
+      dd_message_key = "log"
+      dd_service     = "foo"
+      dd_source      = "php"
+    ~ dd_tags        = "Environment:test,MonitoringScope:foo,,Terraform:true" -> ""
+      provider       = "ecs"
+    }
+  */
+
+  #
+  # IMPORTANT: no keys can have empty values, or you get cryptic errors like the following:
+  # [2020/10/12 16:22:54] [  Error] File /fluent-bit/etc/fluent-bit.conf
+  # [2020/10/12 16:22:54] [  Error] Error in line 32: Key has an empty value
+  dd_environment = [
+    for m in local.dd_environment_tmp : { name = m.name, value = m.value } if m.value != ""
+  ]
 
   dd_secrets = [
     {
@@ -69,7 +89,7 @@ module "datadog" {
   version = "0.41.0"
 
   container_cpu                = 10
-  container_image              = "datadog/agent:latest"
+  container_image              = var.datadog_image_url
   container_memory             = null
   container_memory_reservation = 256
   container_name               = "datadog-agent"

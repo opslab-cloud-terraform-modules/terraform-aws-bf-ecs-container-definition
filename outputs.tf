@@ -14,3 +14,12 @@ output "json_app_only" {
     module.firelens.json_map_encoded,
   )
 }
+
+output "json_objects_map" {
+  description = "Map of container definitions"
+  value = {
+    this     = module.this.json_map_object
+    firelens = module.firelens.json_map_object
+    datadog  = module.datadog.json_map_object
+  }
+}

@@ -117,11 +117,14 @@ and can be error prone.
 |------|-------------|------|---------|:--------:|
 | cloudwatch\_log\_group | Name of the log group | `string` | `null` | no |
 | cluster\_name | ECS cluster name | `string` | n/a | yes |
+| container\_depends\_on | The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed. The condition can be one of START, COMPLETE, SUCCESS or HEALTHY | <pre>list(object({<br>    containerName = string<br>    condition     = string<br>  }))</pre> | `null` | no |
 | container\_name | The name of container. Use when container name differs from service name | `string` | `""` | no |
 | cpu | The number of cpu units to reserve for the container. This is optional for tasks using Fargate launch type and the total amount of container\_cpu of all containers in a task will need to be lower than the task-level cpu value | `number` | `0` | no |
 | datadog\_apm\_enable | When set to true, the Datadog Agent accepts trace metrics | `bool` | `true` | no |
 | datadog\_docker\_labels | Docker labels used by DataDog agent for auto-discovery [doc](https://docs.datadoghq.com/agent/autodiscovery/basic_autodiscovery?tab=docker) | `map(string)` | `null` | no |
+| datadog\_domain | The default public endpoint endpoint is in US | `string` | `"datadoghq.com"` | no |
 | datadog\_environment | Customer environment variables used by DataDog agent [doc](https://docs.datadoghq.com/agent/docker/?tab=standard#environment-variables) | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
+| datadog\_image\_url | URL to datadog-agent docker image | `string` | `"datadog/agent:latest"` | no |
 | datadog\_logcollection\_enable | Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog | `bool` | `true` | no |
 | datadog\_logcollection\_source | The source option will automatically trigger a log processing pipeline in Datadog for your integration [if available](https://docs.datadoghq.com/integrations/#cat-log-collection). | `string` | `"php"` | no |
 | datadog\_process\_enable | Enable the DataDog process agent | `bool` | `true` | no |
@@ -149,5 +152,6 @@ and can be error prone.
 |------|-------------|
 | json | JSON encoded list of container definitions for use with other terraform resources such as aws\_ecs\_task\_definition |
 | json\_app\_only | JSON encoded list of container definition without DataDog side-car |
+| json\_objects\_map | Map of container definitions |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

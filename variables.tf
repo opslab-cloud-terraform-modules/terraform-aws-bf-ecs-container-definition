@@ -119,6 +119,15 @@ variable "mount_points" {
   default = []
 }
 
+variable "container_depends_on" {
+  type = list(object({
+    containerName = string
+    condition     = string
+  }))
+  description = "The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed. The condition can be one of START, COMPLETE, SUCCESS or HEALTHY"
+  default     = null
+}
+
 
 ###
 # Log consumption
@@ -148,6 +157,11 @@ variable "docker_labels" {
   description = "The configuration options to send to the `docker_labels` of main container"
   type        = map(string)
   default     = null
+}
+
+variable "datadog_image_url" {
+  description = "URL to datadog-agent docker image"
+  default     = "datadog/agent:latest"
 }
 
 variable "datadog_docker_labels" {
@@ -181,6 +195,11 @@ variable "datadog_logcollection_enable" {
   description = "Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog"
   default     = true
   type        = bool
+}
+
+variable "datadog_domain" {
+  description = "The default public endpoint endpoint is in US"
+  default     = "datadoghq.com"
 }
 
 variable "datadog_logcollection_source" {

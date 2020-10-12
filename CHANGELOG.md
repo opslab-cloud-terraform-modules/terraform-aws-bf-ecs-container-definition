@@ -4,7 +4,11 @@
 
 ### Features
 
-* variable for datadog endpoint feat: variable for datadog docker image url feat: variable for container dependencies feat: gzipped datadog log output remove: deprecated image filtering not working for ECS wip: avoid empty values in awsfirelens options map - specifically datadog_tags
+* variable for datadog endpoint 
+* feat: variable for datadog docker image url 
+* feat: variable for container dependencies 
+* feat: gzipped datadog log output 
+* remove: deprecated image filtering not working for ECS wip: avoid empty values in awsfirelens options map - specifically datadog_tags
 
 
 <a name="v0.3.0"></a>

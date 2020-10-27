@@ -1,3 +1,10 @@
+<a name="v0.5.0"></a>
+## [v0.5.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.4.0...v0.5.0) (2020-10-27)
+
+### Features
+
+* attempt on unified datadog service tagging.
+
 
 <a name="v0.4.0"></a>
 ## [v0.4.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.3.0...v0.4.0) (2020-10-12)

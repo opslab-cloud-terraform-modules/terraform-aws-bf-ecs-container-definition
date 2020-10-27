@@ -28,7 +28,7 @@ locals {
         value = var.datadog_process_enable
       },
       {
-        name  = "DD_SERVICE_NAME",
+        name  = "DD_SERVICE",
         value = var.name
       },
       {
@@ -86,7 +86,7 @@ locals {
 # https://docs.datadoghq.com/integrations/ecs_fargate/
 module "datadog" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.41.0"
+  version = "0.42.0"
 
   container_cpu                = 10
   container_image              = var.datadog_image_url

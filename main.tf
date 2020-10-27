@@ -31,7 +31,7 @@ data "aws_ecs_container_definition" "this" {
 
 module "this" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.41.0"
+  version = "0.42.0"
 
   container_depends_on         = var.container_depends_on
   container_cpu                = var.cpu
@@ -55,7 +55,8 @@ module "this" {
 
   docker_labels = merge(
     coalesce(var.docker_labels, {}),
-    coalesce(var.datadog_docker_labels, {})
+    coalesce(var.datadog_docker_labels, {}),
+    { "com.datadoghq.tags.service" = var.name }
   )
 
   # Logs are sent to datadog or cloudwatch by fluent-bit

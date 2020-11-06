@@ -39,6 +39,7 @@ module "this" {
   container_memory_reservation = var.memory_reservation
   container_name               = var.container_name != "" ? var.container_name : var.name
   environment                  = var.environment
+  environment_files            = var.environment_files
   essential                    = true
   healthcheck                  = var.healthcheck
   map_environment              = var.map_environment

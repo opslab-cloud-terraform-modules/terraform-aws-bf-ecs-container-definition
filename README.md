@@ -131,6 +131,7 @@ and can be error prone.
 | datadog\_tags | Map of tags sent to DataDog | `map` | `{}` | no |
 | docker\_labels | The configuration options to send to the `docker_labels` of main container | `map(string)` | `null` | no |
 | environment | The environment variables to pass to the container | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `null` | no |
+| environment\_files | One or more files containing the environment variables to pass to the container. This maps to the --env-file option to docker run. The file must be hosted in Amazon S3. | <pre>list(object({<br>    value = string<br>    type  = string<br>  }))</pre> | `null` | no |
 | healthcheck | A map containing command (string), timeout, interval (duration in seconds), retries (1-10, number of times to retry before marking container unhealthy), and startPeriod (0-300, optional grace period to wait, in seconds, before failed healthchecks count toward retries) | <pre>object({<br>    command     = list(string)<br>    retries     = number<br>    timeout     = number<br>    interval    = number<br>    startPeriod = number<br>  })</pre> | `null` | no |
 | image\_tag | Docker image tag. Used to initiate new task definition from scratch using image:latest or when CI/CD processes does not update tags in container definitions. | `string` | `""` | no |
 | logcollection\_parsejson | Parse container log output as JSON [doc](https://github.com/aws-samples/amazon-ecs-firelens-examples/tree/master/examples/fluent-bit/parse-json) | `bool` | `false` | no |

@@ -76,6 +76,15 @@ variable "map_environment" {
   default     = null
 }
 
+variable "environment_files" {
+  description = "One or more files containing the environment variables to pass to the container. This maps to the --env-file option to docker run. The file must be hosted in Amazon S3."
+  type = list(object({
+    value = string
+    type  = string
+  }))
+  default = null
+}
+
 variable "secrets" {
   description = "The SSM parameters to pass to the container"
   type = list(object({

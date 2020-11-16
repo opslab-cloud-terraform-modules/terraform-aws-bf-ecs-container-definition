@@ -1,10 +1,18 @@
 
+<a name="v0.7.0"></a>
+## [v0.7.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.6.0...v0.7.0) (2020-11-16)
+
+
 <a name="v0.6.0"></a>
 ## [v0.6.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.5.0...v0.6.0) (2020-11-06)
 
 ### Code Refactoring
 
 * Using cloudposse module version 0.44
+
+### Documentation
+
+* changelog
 
 ### Features
 

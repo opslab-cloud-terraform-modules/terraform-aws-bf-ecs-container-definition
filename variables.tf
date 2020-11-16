@@ -156,10 +156,30 @@ variable "logcollection_parsejson" {
 ###
 # DataDog monitoring
 
+variable "datadog_domain" {
+  description = "The default public endpoint endpoint is in US"
+  default     = "datadoghq.com"
+}
+
 variable "ssm_datadog_api_key" {
   type        = string
   description = "Path to SSM parameter storing the encrypted DataDog API key"
   default     = null
+}
+
+variable "datadog_log_level" {
+  description = "https://docs.datadoghq.com/agent/troubleshooting/debug_mode/?tab=agentv6v7#agent-log-level"
+  default     = "WARN"
+}
+
+variable "datadog_agent_container_source" {
+  description = "https://docs.datadoghq.com/agent/docker/?tab=standard#misc"
+  default     = "ecs_fargate"
+}
+
+variable "datadog_container_exclude" {
+  description = "Blocklist of containers to exclude (separated by spaces). Use .* to exclude all. For example: \"image:image_name_3 image:image_name_4\""
+  default     = "name:datadog-agent name:firelens"
 }
 
 variable "docker_labels" {
@@ -194,6 +214,11 @@ variable "datadog_apm_enable" {
   type        = bool
 }
 
+variable "datadog_apm_ignore_resources" {
+  description = "Configure resources for the Agent to ignore. Format should be comma separated, regular expressions. Example: GET /ignore-me,(GET|POST) /and-also-me."
+  default     = ""
+}
+
 variable "datadog_process_enable" {
   description = "Enable the DataDog process agent"
   default     = true
@@ -204,11 +229,6 @@ variable "datadog_logcollection_enable" {
   description = "Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog"
   default     = true
   type        = bool
-}
-
-variable "datadog_domain" {
-  description = "The default public endpoint endpoint is in US"
-  default     = "datadoghq.com"
 }
 
 variable "datadog_logcollection_source" {

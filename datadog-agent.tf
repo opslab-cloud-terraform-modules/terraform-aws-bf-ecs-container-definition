@@ -20,12 +20,24 @@ locals {
         value = var.datadog_apm_enable
       },
       {
+        name  = "DD_APM_IGNORE_RESOURCES",
+        value = var.datadog_apm_ignore_resources
+      },
+      {
+        name  = "DD_CONTAINER_EXCLUDE",
+        value = var.datadog_container_exclude
+      },
+      {
         name  = "DD_LOG_LEVEL",
-        value = "WARN"
+        value = upper(var.datadog_log_level)
       },
       {
         name  = "DD_PROCESS_AGENT_ENABLED",
         value = var.datadog_process_enable
+      },
+      {
+        name  = "DD_PROCESS_AGENT_CONTAINER_SOURCE",
+        value = var.datadog_agent_container_source
       },
       {
         name  = "DD_SERVICE",

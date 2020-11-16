@@ -120,11 +120,15 @@ and can be error prone.
 | container\_depends\_on | The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed. The condition can be one of START, COMPLETE, SUCCESS or HEALTHY | <pre>list(object({<br>    containerName = string<br>    condition     = string<br>  }))</pre> | `null` | no |
 | container\_name | The name of container. Use when container name differs from service name | `string` | `""` | no |
 | cpu | The number of cpu units to reserve for the container. This is optional for tasks using Fargate launch type and the total amount of container\_cpu of all containers in a task will need to be lower than the task-level cpu value | `number` | `0` | no |
+| datadog\_agent\_container\_source | https://docs.datadoghq.com/agent/docker/?tab=standard#misc | `string` | `"ecs_fargate"` | no |
 | datadog\_apm\_enable | When set to true, the Datadog Agent accepts trace metrics | `bool` | `true` | no |
+| datadog\_apm\_ignore\_resources | Configure resources for the Agent to ignore. Format should be comma separated, regular expressions. Example: GET /ignore-me,(GET\|POST) /and-also-me. | `string` | `""` | no |
+| datadog\_container\_exclude | Blocklist of containers to exclude (separated by spaces). Use .\* to exclude all. For example: "image:image\_name\_3 image:image\_name\_4" | `string` | `"name:datadog-agent name:firelens"` | no |
 | datadog\_docker\_labels | Docker labels used by DataDog agent for auto-discovery [doc](https://docs.datadoghq.com/agent/autodiscovery/basic_autodiscovery?tab=docker) | `map(string)` | `null` | no |
 | datadog\_domain | The default public endpoint endpoint is in US | `string` | `"datadoghq.com"` | no |
 | datadog\_environment | Customer environment variables used by DataDog agent [doc](https://docs.datadoghq.com/agent/docker/?tab=standard#environment-variables) | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | datadog\_image\_url | URL to datadog-agent docker image | `string` | `"datadog/agent:latest"` | no |
+| datadog\_log\_level | https://docs.datadoghq.com/agent/troubleshooting/debug_mode/?tab=agentv6v7#agent-log-level | `string` | `"WARN"` | no |
 | datadog\_logcollection\_enable | Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog | `bool` | `true` | no |
 | datadog\_logcollection\_source | The source option will automatically trigger a log processing pipeline in Datadog for your integration [if available](https://docs.datadoghq.com/integrations/#cat-log-collection). | `string` | `"php"` | no |
 | datadog\_process\_enable | Enable the DataDog process agent | `bool` | `true` | no |

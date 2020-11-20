@@ -1,4 +1,18 @@
 
+<a name="v0.8.0"></a>
+## [v0.8.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.7.0...v0.8.0) (2020-11-20)
+
+### Code Refactoring
+
+* secrets variables default []
+* cloudwatch_log_group as required var
+
+### Documentation
+
+* pre-commit url
+* added utility links
+
+
 <a name="v0.7.0"></a>
 ## [v0.7.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.6.0...v0.7.0) (2020-11-16)
 

@@ -119,7 +119,7 @@ and can be error prone.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cloudwatch\_log\_group | Name of the log group | `string` | `null` | no |
+| cloudwatch\_log\_group | Name of the log group | `string` | n/a | yes |
 | cluster\_name | ECS cluster name | `string` | n/a | yes |
 | container\_depends\_on | The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed. The condition can be one of START, COMPLETE, SUCCESS or HEALTHY | <pre>list(object({<br>    containerName = string<br>    condition     = string<br>  }))</pre> | `null` | no |
 | container\_name | The name of container. Use when container name differs from service name | `string` | `""` | no |

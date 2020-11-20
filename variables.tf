@@ -144,7 +144,6 @@ variable "container_depends_on" {
 variable "cloudwatch_log_group" {
   description = "Name of the log group"
   type        = string
-  default     = null
 }
 
 variable "logcollection_parsejson" {

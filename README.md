@@ -150,7 +150,7 @@ and can be error prone.
 | name | The name of the service. Up to 255 characters (a-z, A-Z, 0-9, -, \_ allowed) | `string` | n/a | yes |
 | port\_mappings | The port mappings to configure for the container. This is a list of maps. Each map should contain "containerPort", "hostPort", and "protocol", where "protocol" is one of "tcp" or "udp". If using containers in a task with the awsvpc or host network mode, the hostPort can either be left blank or set to the same value as the containerPort | <pre>list(object({<br>    containerPort = number<br>    hostPort      = number<br>    protocol      = string<br>  }))</pre> | <pre>[<br>  {<br>    "containerPort": 80,<br>    "hostPort": 80,<br>    "protocol": "tcp"<br>  }<br>]</pre> | no |
 | repo | Docker repo | `string` | n/a | yes |
-| secrets | The SSM parameters to pass to the container | <pre>list(object({<br>    name      = string<br>    valueFrom = string<br>  }))</pre> | `null` | no |
+| secrets | The SSM parameters to pass to the container | <pre>list(object({<br>    name      = string<br>    valueFrom = string<br>  }))</pre> | `[]` | no |
 | ssm\_datadog\_api\_key | Path to SSM parameter storing the encrypted DataDog API key | `string` | `null` | no |
 | task\_definition\_name | The name of task definition. Use when task definition name differs from service name | `string` | `""` | no |
 | volumes\_from | A list of VolumesFrom maps which contain "sourceContainer" (name of the container that has the volumes to mount) and "readOnly" (whether the container can write to the volume) | <pre>list(object({<br>    sourceContainer = string<br>    readOnly        = bool<br>  }))</pre> | `[]` | no |

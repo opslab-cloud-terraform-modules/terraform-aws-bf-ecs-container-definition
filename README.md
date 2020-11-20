@@ -99,6 +99,7 @@ and can be error prone.
 ### Utilities
 - https://github.com/git-chglog/git-chglog
 - https://github.com/pnikosis/semtag
+- https://pre-commit.com/
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

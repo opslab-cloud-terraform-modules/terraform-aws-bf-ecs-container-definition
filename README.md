@@ -15,6 +15,7 @@
   - [awslogs](#awslogs)
   - [DataDog integration](#datadog-integration)
   - [AWS FireLens](#aws-firelens)
+  - [Utilities](#utilities)
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Inputs](#inputs)
@@ -95,6 +96,9 @@ and can be error prone.
 - https://www.datadoghq.com/blog/multiline-logging-guide
 - https://github.com/aws-samples/amazon-ecs-firelens-examples/blob/master/examples/fluent-bit/datadog/task-definition.json
 
+### Utilities
+- https://github.com/git-chglog/git-chglog
+- https://github.com/pnikosis/semtag
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

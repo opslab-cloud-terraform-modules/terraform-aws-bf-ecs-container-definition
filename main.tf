@@ -31,7 +31,7 @@ data "aws_ecs_container_definition" "this" {
 
 module "this" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.44.0"
+  version = "0.45.2"
 
   container_depends_on         = var.container_depends_on
   container_cpu                = var.cpu

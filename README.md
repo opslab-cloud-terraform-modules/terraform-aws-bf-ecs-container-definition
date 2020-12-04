@@ -107,7 +107,7 @@ and can be error prone.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.7, < 0.14 |
+| terraform | >= 0.12.7 |
 | aws | >= 2.7, < 4.0 |
 
 ## Providers

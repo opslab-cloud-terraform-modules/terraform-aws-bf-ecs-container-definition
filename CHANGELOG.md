@@ -1,4 +1,13 @@
 
+<a name="v0.9.0"></a>
+## [v0.9.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.8.0...v0.9.0) (2020-12-04)
+
+### Code Refactoring
+
+* sub-module version bump for tf 0.14 support
+* looser terraform version restrictions
+
+
 <a name="v0.8.0"></a>
 ## [v0.8.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.7.0...v0.8.0) (2020-11-20)
 

@@ -137,6 +137,11 @@ variable "container_depends_on" {
   default     = null
 }
 
+variable "essential" {
+  type        = bool
+  description = "Determines whether all other containers in a task are stopped, if this container fails or stops for any reason. Due to how Terraform type casts booleans in json it is required to double quote this value"
+  default     = true
+}
 
 ###
 # Log consumption

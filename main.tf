@@ -40,7 +40,7 @@ module "this" {
   container_name               = var.container_name != "" ? var.container_name : var.name
   environment                  = var.environment
   environment_files            = var.environment_files
-  essential                    = true
+  essential                    = var.essential
   healthcheck                  = var.healthcheck
   map_environment              = var.map_environment
   mount_points                 = var.mount_points

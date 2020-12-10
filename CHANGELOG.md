@@ -1,4 +1,12 @@
 
+<a name="v0.10.0"></a>
+## [v0.10.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.9.0...v0.10.0) (2020-12-10)
+
+### Features
+
+* variable essential
+
+
 <a name="v0.9.0"></a>
 ## [v0.9.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.8.0...v0.9.0) (2020-12-04)
 

@@ -11,8 +11,7 @@ data "aws_ecs_cluster" "this" {
 * Fargate supports secrets from other resources than SSM,
 * but the ARNs from ie Secrets Manager don't contain the :parameter string
 */
-
-data "aws_ssm_parameter" "secrets" {
+data "aws_ssm_parameter" "this" {
   for_each = { for s in var.secrets :
     # * Split out the name of the parameter
     s.name => split(":parameter", s.valueFrom)[1]
@@ -28,7 +27,7 @@ data "aws_ssm_parameter" "secrets" {
 * but the ARNs from ie SSM don't contain the :secretsmanager: string
 */
 
-data "aws_secretsmanager_secret" "secrets" {
+data "aws_secretsmanager_secret" "this" {
   for_each = { for s in var.secrets :
     # * Remove versioning/json-key incase it has been specified
     s.name => join(":", slice(split(":", s.valueFrom), 0, 7))

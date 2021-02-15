@@ -6,12 +6,31 @@ data "aws_ecs_cluster" "this" {
   cluster_name = var.cluster_name
 }
 
-# Validate SSM parameters to avoid failing ECS deployments
-# Fargate supports secrets from other resources than SSM,
-# but the ARNs from ie Secrets Manager don't contain the :parameter string
+/*
+* Validate SSM parameters to avoid failing ECS deployments
+* Fargate supports secrets from other resources than SSM,
+* but the ARNs from ie Secrets Manager don't contain the :parameter string
+*/
+
 data "aws_ssm_parameter" "this" {
-  for_each = { for s in var.secrets : s.name => split(":parameter", s.valueFrom)[1] }
-  name     = each.value
+  for_each = { for s in var.secrets :
+    # * Split out the name of the parameter
+    s.name => split(":parameter", s.valueFrom)[1]
+    # * Only apply to ssm ARNs
+    if length(regexall(":ssm:", s.valueFrom)) > 0
+  }
+  name = each.value
+}
+
+data "aws_secretsmanager_secret" "this" {
+  for_each = { for s in var.secrets :
+    # * Remove versioning/json-key incase it has been specified
+    s.name => join(":", slice(split(":", s.valueFrom), 0, 7))
+    # * Only apply to secretsmanager ARNs
+    if length(regexall(":secretsmanager:", s.valueFrom)) > 0
+  }
+
+  arn = each.value
 }
 
 # For existing tasks, CI/CD pipelines will create new revisions

@@ -26,7 +26,6 @@ data "aws_ssm_parameter" "this" {
 * Fargate supports secrets from other resources than SecretsManager,
 * but the ARNs from ie SSM don't contain the :secretsmanager: string
 */
-
 data "aws_secretsmanager_secret" "this" {
   for_each = { for s in var.secrets :
     # * Remove versioning/json-key incase it has been specified

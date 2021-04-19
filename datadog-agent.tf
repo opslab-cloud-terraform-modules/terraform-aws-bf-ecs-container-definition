@@ -98,7 +98,7 @@ locals {
 # https://docs.datadoghq.com/integrations/ecs_fargate/
 module "datadog" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.45.2"
+  version = "0.56.0"
 
   container_cpu                = 10
   container_image              = var.datadog_image_url

@@ -84,7 +84,7 @@ data "aws_ssm_parameter" "fluent_ecr" {
 # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-using-fluentbit
 module "firelens" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.45.2"
+  version = "0.56.0"
 
   container_cpu                = 0
   container_image              = data.aws_ssm_parameter.fluent_ecr.value

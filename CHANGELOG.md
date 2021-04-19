@@ -1,4 +1,12 @@
 
+<a name="v0.12.0"></a>
+## [v0.12.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.11.0...v0.12.0) (2021-04-19)
+
+### Code Refactoring
+
+* aws provider required is 3.34 for ECS Exec support
+
+
 <a name="v0.11.0"></a>
 ## [v0.11.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.10.0...v0.11.0) (2021-04-19)
 

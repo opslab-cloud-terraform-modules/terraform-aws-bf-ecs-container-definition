@@ -86,7 +86,16 @@ variable "environment_files" {
 }
 
 variable "secrets" {
-  description = "The SSM parameters to pass to the container"
+  description = "The SSM/SecretsManager parameter ARNs to pass to the container"
+  type = list(object({
+    name      = string
+    valueFrom = string
+  }))
+  default = []
+}
+
+variable "datadog_secrets" {
+  description = "The SSM/SecretsManager parameter ARNs to pass to the datadog sidecar"
   type = list(object({
     name      = string
     valueFrom = string
@@ -187,7 +196,7 @@ variable "datadog_domain" {
 
 variable "ssm_datadog_api_key" {
   type        = string
-  description = "Path to SSM parameter storing the encrypted DataDog API key"
+  description = "Path to SSM/SecretsManager parameter ARN storing the encrypted DataDog API key"
   default     = null
 }
 

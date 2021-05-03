@@ -12,7 +12,7 @@ data "aws_ecs_cluster" "this" {
 * but the ARNs from ie Secrets Manager don't contain the :parameter string
 */
 
-data "aws_ssm_parameter" "this" {
+data "aws_ssm_parameter" "secrets" {
   for_each = { for s in var.secrets :
     # * Split out the name of the parameter
     s.name => split(":parameter", s.valueFrom)[1]
@@ -22,7 +22,13 @@ data "aws_ssm_parameter" "this" {
   name = each.value
 }
 
-data "aws_secretsmanager_secret" "this" {
+/*
+* Validate SecretsManager secrets to avoid failing ECS deployments
+* Fargate supports secrets from other resources than SecretsManager,
+* but the ARNs from ie SSM don't contain the :secretsmanager: string
+*/
+
+data "aws_secretsmanager_secret" "secrets" {
   for_each = { for s in var.secrets :
     # * Remove versioning/json-key incase it has been specified
     s.name => join(":", slice(split(":", s.valueFrom), 0, 7))

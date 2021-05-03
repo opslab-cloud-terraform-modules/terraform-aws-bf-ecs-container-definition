@@ -134,8 +134,11 @@ and can be error prone.
 | [aws_ecs_container_definition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_container_definition) | data source |
 | [aws_ecs_task_definition.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_task_definition) | data source |
 | [aws_region.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_secretsmanager_secret.datadog_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_secretsmanager_secret.secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_ssm_parameter.datadog_secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 | [aws_ssm_parameter.fluent_ecr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
-| [aws_ssm_parameter.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
@@ -158,6 +161,7 @@ and can be error prone.
 | <a name="input_datadog_logcollection_enable"></a> [datadog\_logcollection\_enable](#input\_datadog\_logcollection\_enable) | Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog | `bool` | `true` | no |
 | <a name="input_datadog_logcollection_source"></a> [datadog\_logcollection\_source](#input\_datadog\_logcollection\_source) | The source option will automatically trigger a log processing pipeline in Datadog for your integration [if available](https://docs.datadoghq.com/integrations/#cat-log-collection). | `string` | `"php"` | no |
 | <a name="input_datadog_process_enable"></a> [datadog\_process\_enable](#input\_datadog\_process\_enable) | Enable the DataDog process agent | `bool` | `true` | no |
+| <a name="input_datadog_secrets"></a> [datadog\_secrets](#input\_datadog\_secrets) | The SSM/SecretsManager parameter ARNs to pass to the datadog sidecar | <pre>list(object({<br>    name      = string<br>    valueFrom = string<br>  }))</pre> | `[]` | no |
 | <a name="input_datadog_tags"></a> [datadog\_tags](#input\_datadog\_tags) | Map of tags sent to DataDog | `map` | `{}` | no |
 | <a name="input_docker_labels"></a> [docker\_labels](#input\_docker\_labels) | The configuration options to send to the `docker_labels` of main container | `map(string)` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment variables to pass to the container | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `null` | no |
@@ -173,8 +177,8 @@ and can be error prone.
 | <a name="input_name"></a> [name](#input\_name) | The name of the service. Up to 255 characters (a-z, A-Z, 0-9, -, \_ allowed) | `string` | n/a | yes |
 | <a name="input_port_mappings"></a> [port\_mappings](#input\_port\_mappings) | The port mappings to configure for the container. This is a list of maps. Each map should contain "containerPort", "hostPort", and "protocol", where "protocol" is one of "tcp" or "udp". If using containers in a task with the awsvpc or host network mode, the hostPort can either be left blank or set to the same value as the containerPort | <pre>list(object({<br>    containerPort = number<br>    hostPort      = number<br>    protocol      = string<br>  }))</pre> | <pre>[<br>  {<br>    "containerPort": 80,<br>    "hostPort": 80,<br>    "protocol": "tcp"<br>  }<br>]</pre> | no |
 | <a name="input_repo"></a> [repo](#input\_repo) | Docker repo | `string` | n/a | yes |
-| <a name="input_secrets"></a> [secrets](#input\_secrets) | The SSM parameters to pass to the container | <pre>list(object({<br>    name      = string<br>    valueFrom = string<br>  }))</pre> | `[]` | no |
-| <a name="input_ssm_datadog_api_key"></a> [ssm\_datadog\_api\_key](#input\_ssm\_datadog\_api\_key) | Path to SSM parameter storing the encrypted DataDog API key | `string` | `null` | no |
+| <a name="input_secrets"></a> [secrets](#input\_secrets) | The SSM/SecretsManager parameter ARNs to pass to the container | <pre>list(object({<br>    name      = string<br>    valueFrom = string<br>  }))</pre> | `[]` | no |
+| <a name="input_ssm_datadog_api_key"></a> [ssm\_datadog\_api\_key](#input\_ssm\_datadog\_api\_key) | Path to SSM/SecretsManager parameter ARN storing the encrypted DataDog API key | `string` | `null` | no |
 | <a name="input_task_definition_name"></a> [task\_definition\_name](#input\_task\_definition\_name) | The name of task definition. Use when task definition name differs from service name | `string` | `""` | no |
 | <a name="input_volumes_from"></a> [volumes\_from](#input\_volumes\_from) | A list of VolumesFrom maps which contain "sourceContainer" (name of the container that has the volumes to mount) and "readOnly" (whether the container can write to the volume) | <pre>list(object({<br>    sourceContainer = string<br>    readOnly        = bool<br>  }))</pre> | `[]` | no |
 

@@ -1,3 +1,37 @@
+/*
+* Validate SSM parameters to avoid failing ECS deployments
+* Fargate supports secrets from other resources than SSM,
+* but the ARNs from ie Secrets Manager don't contain the :parameter string
+*/
+
+data "aws_ssm_parameter" "datadog_secrets" {
+  for_each = { for s in var.datadog_secrets :
+    # * Split out the name of the parameter
+    s.name => split(":parameter", s.valueFrom)[1]
+    # * Only apply to ssm ARNs
+    if length(regexall(":ssm:", s.valueFrom)) > 0
+  }
+  name = each.value
+}
+
+/*
+* Validate SecretsManager secrets to avoid failing ECS deployments
+* Fargate supports secrets from other resources than SecretsManager,
+* but the ARNs from ie SSM don't contain the :secretsmanager: string
+*/
+
+data "aws_secretsmanager_secret" "datadog_secrets" {
+  for_each = { for s in var.datadog_secrets :
+    # * Remove versioning/json-key incase it has been specified
+    s.name => join(":", slice(split(":", s.valueFrom), 0, 7))
+    # * Only apply to secretsmanager ARNs
+    if length(regexall(":secretsmanager:", s.valueFrom)) > 0
+  }
+
+  arn = each.value
+}
+
+
 locals {
 
   ###
@@ -87,12 +121,15 @@ locals {
     for m in local.dd_environment_tmp : { name = m.name, value = m.value } if m.value != ""
   ]
 
-  dd_secrets = [
-    {
-      name      = "DD_API_KEY",
-      valueFrom = var.ssm_datadog_api_key
-    }
-  ]
+  dd_secrets = concat(
+    [
+      {
+        name      = "DD_API_KEY",
+        valueFrom = var.ssm_datadog_api_key
+      }
+    ],
+    var.datadog_secrets
+  )
 }
 
 # https://docs.datadoghq.com/integrations/ecs_fargate/

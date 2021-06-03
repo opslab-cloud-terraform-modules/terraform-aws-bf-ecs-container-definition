@@ -148,6 +148,15 @@ module "datadog" {
   secrets                      = local.dd_secrets
   volumes_from                 = []
 
+  # Depend on application container being HEALTHY if healthcheck is enabled on it
+  # It will reduce errors originating from datadog checks
+  container_depends_on = var.healthcheck == null ? null : [
+    {
+      "containerName" = var.container_name != "" ? var.container_name : var.name
+      "condition"     = "HEALTHY"
+    }
+  ]
+
   # The datadog-agent's own logs are sent to cloudwatch
   log_configuration = {
     logDriver = "awslogs",

@@ -50,7 +50,18 @@ variable "port_mappings" {
 }
 
 variable "healthcheck" {
-  description = "A map containing command (string), timeout, interval (duration in seconds), retries (1-10, number of times to retry before marking container unhealthy), and startPeriod (0-300, optional grace period to wait, in seconds, before failed healthchecks count toward retries)"
+  description = <<-EOL
+    A map containing:
+      command (string),
+      timeout,
+      interval (duration in seconds),
+      retries (1-10, number of times to retry before marking container unhealthy),
+      and startPeriod (0-300, optional grace period to wait, in seconds, before failed healthchecks count toward retries)
+
+    If Healthcheck is enabled, datadog sidecar will depend on application container having status HEALTHY.
+    https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ContainerDependency.html
+  EOL
+
   type = object({
     command     = list(string)
     retries     = number

@@ -87,7 +87,7 @@ module "firelens" {
   version = "0.56.0"
 
   container_cpu                = 0
-  container_image              = data.aws_ssm_parameter.fluent_ecr.value
+  container_image              = nonsensitive(data.aws_ssm_parameter.fluent_ecr.value)
   container_memory             = null
   container_memory_reservation = 100
   container_name               = "firelens"

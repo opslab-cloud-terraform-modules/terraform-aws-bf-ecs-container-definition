@@ -56,7 +56,7 @@ data "aws_ecs_container_definition" "this" {
 
 module "this" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.56.0"
+  version = "0.57.0"
 
   container_cpu                = var.cpu
   container_depends_on         = var.container_depends_on
@@ -69,6 +69,7 @@ module "this" {
   healthcheck                  = var.healthcheck
   linux_parameters             = var.linux_parameters
   map_environment              = var.map_environment
+  map_secrets                  = var.map_secrets
   mount_points                 = var.mount_points
   port_mappings                = var.port_mappings
   secrets                      = var.secrets

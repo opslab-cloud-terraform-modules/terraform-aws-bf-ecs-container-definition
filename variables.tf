@@ -87,6 +87,12 @@ variable "map_environment" {
   default     = null
 }
 
+variable "map_secrets" {
+  type        = map(string)
+  description = "The secrets variables to pass to the container. This is a map of string: {key: value}. map_secrets overrides secrets"
+  default     = null
+}
+
 variable "environment_files" {
   description = "One or more files containing the environment variables to pass to the container. This maps to the --env-file option to docker run. The file must be hosted in Amazon S3."
   type = list(object({

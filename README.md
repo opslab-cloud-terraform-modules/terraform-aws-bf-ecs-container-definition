@@ -122,9 +122,9 @@ and can be error prone.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_datadog"></a> [datadog](#module\_datadog) | cloudposse/ecs-container-definition/aws | 0.56.0 |
-| <a name="module_firelens"></a> [firelens](#module\_firelens) | cloudposse/ecs-container-definition/aws | 0.56.0 |
-| <a name="module_this"></a> [this](#module\_this) | cloudposse/ecs-container-definition/aws | 0.56.0 |
+| <a name="module_datadog"></a> [datadog](#module\_datadog) | cloudposse/ecs-container-definition/aws | 0.57.0 |
+| <a name="module_firelens"></a> [firelens](#module\_firelens) | cloudposse/ecs-container-definition/aws | 0.57.0 |
+| <a name="module_this"></a> [this](#module\_this) | cloudposse/ecs-container-definition/aws | 0.57.0 |
 
 ## Resources
 
@@ -171,6 +171,7 @@ and can be error prone.
 | <a name="input_linux_parameters"></a> [linux\_parameters](#input\_linux\_parameters) | Linux-specific modifications that are applied to the container, such as Linux kernel capabilities. For more details, see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LinuxParameters.html | <pre>object({<br>    capabilities = object({<br>      add  = list(string)<br>      drop = list(string)<br>    })<br>    devices = list(object({<br>      containerPath = string<br>      hostPath      = string<br>      permissions   = list(string)<br>    }))<br>    initProcessEnabled = bool<br>    maxSwap            = number<br>    sharedMemorySize   = number<br>    swappiness         = number<br>    tmpfs = list(object({<br>      containerPath = string<br>      mountOptions  = list(string)<br>      size          = number<br>    }))<br>  })</pre> | `null` | no |
 | <a name="input_logcollection_parsejson"></a> [logcollection\_parsejson](#input\_logcollection\_parsejson) | Parse container log output as JSON [doc](https://github.com/aws-samples/amazon-ecs-firelens-examples/tree/master/examples/fluent-bit/parse-json) | `bool` | `false` | no |
 | <a name="input_map_environment"></a> [map\_environment](#input\_map\_environment) | The environment variables to pass to the container. This is a map of string: {key: value}, environment override map\_environment | `map(string)` | `null` | no |
+| <a name="input_map_secrets"></a> [map\_secrets](#input\_map\_secrets) | The secrets variables to pass to the container. This is a map of string: {key: value}. map\_secrets overrides secrets | `map(string)` | `null` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | The amount of memory (in MiB) to allow the container to use. This is a hard limit, if the container attempts to exceed the container\_memory, the container is killed. This field is optional for Fargate launch type and the total amount of container\_memory of all containers in a task will need to be lower than the task memory value | `number` | `null` | no |
 | <a name="input_memory_reservation"></a> [memory\_reservation](#input\_memory\_reservation) | The amount of memory (in MiB) to reserve for the container. If container needs to exceed this threshold, it can do so up to the set container\_memory hard limit | `number` | `null` | no |
 | <a name="input_mount_points"></a> [mount\_points](#input\_mount\_points) | Container mount points. This is a list of maps, where each map should contain a `containerPath` and `sourceVolume` | <pre>list(object({<br>    containerPath = string<br>    sourceVolume  = string<br>  }))</pre> | `[]` | no |

@@ -1,4 +1,16 @@
 
+<a name="v0.13.0"></a>
+## [v0.13.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.12.0...v0.13.0) (2021-07-01)
+
+### Bug Fixes
+
+* Container definition planned with sensitive diff [#2](https://github.com/basefarm/terraform-aws-ecs-container-definition/issues/2)
+
+### Features
+
+* upstream variable map_secrets
+
+
 <a name="v0.12.0"></a>
 ## [v0.12.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.11.0...v0.12.0) (2021-04-19)
 

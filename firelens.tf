@@ -78,7 +78,7 @@ locals {
 # Locating regional ECR URI for AWS provided Fluent-Bit
 # https://github.com/aws/aws-for-fluent-bit#amazon-ecr
 data "aws_ssm_parameter" "fluent_ecr" {
-  name = "/aws/service/aws-for-fluent-bit/latest"
+  name = "/aws/service/aws-for-fluent-bit/stable"
 }
 
 # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-using-fluentbit

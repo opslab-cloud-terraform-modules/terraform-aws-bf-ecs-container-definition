@@ -1,4 +1,12 @@
 
+<a name="v0.14.0"></a>
+## [v0.14.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.13.0...v0.14.0) (2021-09-03)
+
+### Bug Fixes
+
+* using firelens/stable release [#3](https://github.com/basefarm/terraform-aws-ecs-container-definition/issues/3)
+
+
 <a name="v0.13.0"></a>
 ## [v0.13.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.12.0...v0.13.0) (2021-07-01)
 

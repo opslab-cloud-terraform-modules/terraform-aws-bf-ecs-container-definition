@@ -258,7 +258,7 @@ variable "datadog_process_enable" {
 
 variable "datadog_logcollection_enable" {
   description = "Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog"
-  default     = true
+  default     = false
   type        = bool
 }
 

@@ -130,6 +130,7 @@ variable "mount_points" {
   type = list(object({
     containerPath = string
     sourceVolume  = string
+    readOnly      = bool
   }))
   default = []
 }

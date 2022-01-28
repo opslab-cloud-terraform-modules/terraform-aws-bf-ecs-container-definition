@@ -63,5 +63,6 @@ module "this" {
   )
 
   # Logs are sent to datadog or cloudwatch by fluent-bit
-  log_configuration = var.datadog_logcollection_enable ? local.firelens_config_datadog : local.firelens_config_cwl
+  #log_configuration = var.datadog_logcollection_enable ? local.avaliable_configuration.firelens_config_datadog : local.avaliable_configuration.firelens_config_cwl
+  log_configuration = lookup(local.avaliable_configuration, var.firelens_endpoint, "firelens_cwl")
 }

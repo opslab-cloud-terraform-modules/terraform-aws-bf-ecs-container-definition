@@ -170,6 +170,14 @@ variable "linux_parameters" {
   default     = null
 }
 
+variable "firelens_endpoint" {
+  type    = string
+  default = "firelens_cwl"
+  #validation {
+  #!TODO: Finish writing validation rule
+  #}
+}
+
 ###
 # Log consumption
 
@@ -272,3 +280,25 @@ variable "datadog_tags" {
   description = "Map of tags sent to DataDog"
   default     = {}
 }
+
+## Firelens S3 configuration input
+
+variable "s3_bucket_name" {
+  description = "Name of S3 bucket for firelens to write logs to"
+  default     = ""
+}
+
+## Firelens Kinesis configuration input
+
+variable "kinesis_stream_name" {
+  description = "Name of Kinesis stream for firelens to write logs to"
+  default     = ""
+}
+
+## Firelens Firehose configuration input
+
+variable "firehose_stream_name" {
+  description = "Name of Firehose delivery stream for firelens to write logs to"
+  default     = ""
+}
+

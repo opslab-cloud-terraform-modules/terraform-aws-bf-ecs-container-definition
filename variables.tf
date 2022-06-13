@@ -130,6 +130,7 @@ variable "mount_points" {
   type = list(object({
     containerPath = string
     sourceVolume  = string
+    readOnly      = bool
   }))
   default = []
 }
@@ -167,6 +168,14 @@ variable "linux_parameters" {
   })
   description = "Linux-specific modifications that are applied to the container, such as Linux kernel capabilities. For more details, see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LinuxParameters.html"
   default     = null
+}
+
+variable "firelens_endpoint" {
+  type    = string
+  default = "firelens_cwl"
+  #validation {
+  #!TODO: Finish writing validation rule
+  #}
 }
 
 ###
@@ -257,7 +266,7 @@ variable "datadog_process_enable" {
 
 variable "datadog_logcollection_enable" {
   description = "Monitor Fargate logs by using the AWS FireLens integration built on Datadogs Fluentbit output plugin to send logs to Datadog"
-  default     = true
+  default     = false
   type        = bool
 }
 
@@ -271,3 +280,25 @@ variable "datadog_tags" {
   description = "Map of tags sent to DataDog"
   default     = {}
 }
+
+## Firelens S3 configuration input
+
+variable "s3_bucket_name" {
+  description = "Name of S3 bucket for firelens to write logs to"
+  default     = ""
+}
+
+## Firelens Kinesis configuration input
+
+variable "kinesis_stream_name" {
+  description = "Name of Kinesis stream for firelens to write logs to"
+  default     = ""
+}
+
+## Firelens Firehose configuration input
+
+variable "firehose_stream_name" {
+  description = "Name of Firehose delivery stream for firelens to write logs to"
+  default     = ""
+}
+

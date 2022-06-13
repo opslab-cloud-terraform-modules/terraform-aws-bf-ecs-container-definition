@@ -15,49 +15,81 @@ locals {
   # https://docs.fluentbit.io/manual/pipeline/outputs/datadog#configuration-file
   fb_tags = join(",", [for k, v in var.datadog_tags : "${k}:${v}" if k != "giturl"])
 
-  firelens_config_datadog = {
-    logDriver = "awsfirelens",
+  avaliable_configuration = {
+    firelens_datadog = {
+      logDriver = "awsfirelens",
 
-    options = {
-      compress       = "gzip"
-      dd_message_key = "log"
-      dd_service     = var.name
-      dd_source      = var.datadog_logcollection_source
-      dd_tags        = local.fb_tags
-      Host           = format("http-intake.logs.%s", var.datadog_domain)
-      Name           = "datadog"
-      provider       = "ecs"
-      TLS            = "on"
+      options = {
+        compress       = "gzip"
+        dd_message_key = "log"
+        dd_service     = var.name
+        dd_source      = var.datadog_logcollection_source
+        dd_tags        = local.fb_tags
+        Host           = format("http-intake.logs.%s", var.datadog_domain)
+        Name           = "datadog"
+        provider       = "ecs"
+        TLS            = "on"
+      }
+
+      secretOptions = [
+        {
+          name      = "apikey",
+          valueFrom = var.ssm_datadog_api_key
+      }]
     }
 
-    secretOptions = [
-      {
-        name      = "apikey",
-        valueFrom = var.ssm_datadog_api_key
-    }]
-  }
+    ###
+    # aws firelens with CloudWatch Logs output plugin
+    # This plugin is bundled with the AWS Provided Fluent-Bit image
+    # https://github.com/aws/amazon-cloudwatch-logs-for-fluent-bit
+    # https://github.com/aws-samples/amazon-ecs-firelens-examples/blob/mainline/examples/fluent-bit/cloudwatchlogs/task-definition.json
+    # Not to be confused with alternative plugin:
+    # https://docs.fluentbit.io/manual/pipeline/outputs/cloudwatch
 
-  ###
-  # aws firelens with CloudWatch Logs output plugin
-  # This plugin is bundled with the AWS Provided Fluent-Bit image
-  # https://github.com/aws/amazon-cloudwatch-logs-for-fluent-bit
-  # https://github.com/aws-samples/amazon-ecs-firelens-examples/blob/mainline/examples/fluent-bit/cloudwatchlogs/task-definition.json
-  # Not to be confused with alternative plugin:
-  # https://docs.fluentbit.io/manual/pipeline/outputs/cloudwatch
-
-  firelens_config_cwl = {
-    logDriver = "awsfirelens",
-    options = {
-      auto_create_group = true,
-      log_group_name    = var.cloudwatch_log_group,
-      log_key           = "log",
-      log_stream_prefix = format("%s/", var.name),
-      Name              = "cloudwatch",
-      region            = data.aws_region.this.name,
+    firelens_cwl = {
+      logDriver = "awsfirelens",
+      options = {
+        auto_create_group = true,
+        log_group_name    = var.cloudwatch_log_group,
+        log_key           = "log",
+        log_stream_prefix = format("%s/", var.name),
+        Name              = "cloudwatch",
+        region            = data.aws_region.this.name,
+      }
+      secretOptions = []
     }
-    secretOptions = []
-  }
 
+
+    firelens_s3 = {
+      logDriver = "awsfirelens",
+      options = {
+        Name = "s3"
+        "region" : data.aws_region.this.name,
+        "bucket" : var.s3_bucket_name,
+        "total_file_size" : "1M",
+        "upload_timeout" : "1m",
+        "use_put_object" : "On"
+      }
+    }
+
+    firelens_kinesis = {
+      "logDriver" : "awsfirelens",
+      "options" : {
+        "Name" : "kinesis_streams",
+        "region" : data.aws_region.this.name,
+        "stream" : var.kinesis_stream_name
+      }
+    }
+
+    firelens_firehose = {
+      "logDriver" : "awsfirelens",
+      "options" : {
+        "Name" : "firehose",
+        "region" : data.aws_region.this.name,
+        "delivery_stream" : var.firehose_stream_name
+      }
+    }
+  }
   ###
   # Fluent-Bit Options
 
@@ -84,7 +116,7 @@ data "aws_ssm_parameter" "fluent_ecr" {
 # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-using-fluentbit
 module "firelens" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.57.0"
+  version = "0.58.1"
 
   container_cpu                = 0
   container_image              = nonsensitive(data.aws_ssm_parameter.fluent_ecr.value)

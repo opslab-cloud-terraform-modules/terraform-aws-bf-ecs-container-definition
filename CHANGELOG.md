@@ -1,4 +1,15 @@
 
+<a name="v0.15.0"></a>
+## [v0.15.0](https://github.com/basefarm/terraform-aws-bf-ecs-container-definition/compare/v0.14.0...v0.15.0) (2022-01-06)
+
+### Bug Fixes
+
+* versions.tf update.
+* Changed datadog log collection to not be enabled by default.
+* Updated dependencies
+* Fixed "mount_points" variable, was missing a required "readOnly" parameter
+
+
 <a name="v0.14.0"></a>
 ## [v0.14.0](https://github.com/basefarm/terraform-aws-ecs-container-definition/compare/v0.13.0...v0.14.0) (2021-09-03)
 

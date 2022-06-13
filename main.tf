@@ -31,7 +31,7 @@ data "aws_ecs_container_definition" "this" {
 
 module "this" {
   source  = "cloudposse/ecs-container-definition/aws"
-  version = "0.57.0"
+  version = "0.58.1"
 
   container_cpu                = var.cpu
   container_depends_on         = var.container_depends_on
@@ -63,5 +63,6 @@ module "this" {
   )
 
   # Logs are sent to datadog or cloudwatch by fluent-bit
-  log_configuration = var.datadog_logcollection_enable ? local.firelens_config_datadog : local.firelens_config_cwl
+  #log_configuration = var.datadog_logcollection_enable ? local.avaliable_configuration.firelens_config_datadog : local.avaliable_configuration.firelens_config_cwl
+  log_configuration = lookup(local.avaliable_configuration, var.firelens_endpoint, "firelens_cwl")
 }
